@@ -1,6 +1,6 @@
-package com.broad.batch.framework.connect.property;
+package com.yems.framework.connect.property;
 
-import com.broad.batch.framework.utility.MainClass;
+import com.yems.framework.utility.MainClass;
 
 public abstract class ConnectBase extends MainClass
 {

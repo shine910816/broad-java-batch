@@ -1,10 +1,9 @@
-package com.broad.batch.framework.connect.mysql;
+package com.yems.framework.connect.mysql;
 
 import java.sql.ResultSet;
 
-import com.broad.batch.framework.connect.mysql.property.MysqlConnect;
-import com.broad.batch.framework.utility.Request;
-
+import com.yems.framework.connect.mysql.property.MysqlConnect;
+import com.yems.framework.utility.Request;
 
 public class MysqlSlaveDBI extends MysqlConnect
 {

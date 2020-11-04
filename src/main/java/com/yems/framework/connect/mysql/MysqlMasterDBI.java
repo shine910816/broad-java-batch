@@ -1,14 +1,14 @@
-package com.broad.batch.framework.connect.mysql;
+package com.yems.framework.connect.mysql;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.Map;
 
-import com.broad.batch.framework.utility.Request;
-import com.broad.batch.framework.utility.Utility;
-import com.broad.batch.framework.utility.parameters.constant.ConstDatetime;
-import com.broad.batch.framework.utility.parameters.constant.ConstQuote;
+import com.yems.framework.utility.Request;
+import com.yems.framework.utility.Utility;
+import com.yems.framework.utility.parameters.constant.ConstDatetime;
+import com.yems.framework.utility.parameters.constant.ConstQuote;
 
 public class MysqlMasterDBI extends MysqlSlaveDBI
 {
@@ -37,15 +37,15 @@ public class MysqlMasterDBI extends MysqlSlaveDBI
         {
             return res;
         }
-        ResultSet lastId = slaveQuery("SELECT LAST_INSERT_ID();");
         try
         {
+            ResultSet lastId = slaveQuery("SELECT LAST_INSERT_ID();");
             lastId.next();
             res = Utility.toInteger(lastId.getString(1));
         }
         catch (SQLException e)
         {
-            e.printStackTrace();
+            LOG.error(e.getMessage());
         }
         return res;
     }

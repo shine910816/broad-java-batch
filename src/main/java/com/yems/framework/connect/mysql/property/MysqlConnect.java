@@ -1,14 +1,14 @@
-package com.broad.batch.framework.connect.mysql.property;
+package com.yems.framework.connect.mysql.property;
 
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.broad.batch.framework.connect.property.ConnectBase;
-import com.broad.batch.framework.utility.Request;
-import com.broad.batch.framework.utility.parameters.property.OptionElement;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
+import com.yems.framework.connect.property.ConnectBase;
+import com.yems.framework.utility.Request;
+import com.yems.framework.utility.parameters.property.OptionElement;
 
 public class MysqlConnect extends ConnectBase
 {

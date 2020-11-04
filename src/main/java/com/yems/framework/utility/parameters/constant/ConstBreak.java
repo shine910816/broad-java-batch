@@ -1,6 +1,6 @@
-package com.broad.batch.framework.utility.parameters.constant;
+package com.yems.framework.utility.parameters.constant;
 
-import com.broad.batch.framework.utility.parameters.property.Parameters;
+import com.yems.framework.utility.parameters.property.Parameters;
 
 public enum ConstBreak implements Parameters
 {

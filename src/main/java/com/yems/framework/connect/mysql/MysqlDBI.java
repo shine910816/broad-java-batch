@@ -1,7 +1,7 @@
-package com.broad.batch.framework.connect.mysql;
+package com.yems.framework.connect.mysql;
 
-import com.broad.batch.framework.utility.MainClass;
-import com.broad.batch.framework.utility.Request;
+import com.yems.framework.utility.MainClass;
+import com.yems.framework.utility.Request;
 
 public abstract class MysqlDBI extends MainClass
 {

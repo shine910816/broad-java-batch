@@ -1,8 +1,5 @@
-package com.broad.batch.framework.utility;
+package com.yems.framework.utility;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,9 +11,9 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import com.broad.batch.framework.utility.parameters.constant.ConstDatetime;
-import com.broad.batch.framework.utility.parameters.constant.ConstQuote;
-import com.broad.batch.framework.utility.parameters.property.Parameters;
+import com.yems.framework.utility.parameters.constant.ConstDatetime;
+import com.yems.framework.utility.parameters.constant.ConstQuote;
+import com.yems.framework.utility.parameters.property.Parameters;
 
 public class Utility
 {
@@ -172,11 +169,9 @@ public class Utility
     /**
      * Split keyword and match corresponding enumeration value
      * 
-     * @param keyword
-     *            split by ","
-     * @param clazz
-     *            enumeration class
-     * @return
+     * @param keyword split by ","
+     * @param clazz enumeration class
+     * @return Parameters
      */
     public static <T extends Enum<T> & Parameters> List<T> getEnums(String keyword, Class<T> clazz)
     {
@@ -343,36 +338,5 @@ public class Utility
         c.setTime(date);
         c.add(Calendar.DAY_OF_MONTH, days);
         return c.getTime();
-    }
-
-    public static File getFileResource(String filePath)
-    {
-        try
-        {
-            return new File("src/main/resource/" + filePath);
-        }
-        catch (NullPointerException e)
-        {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public static FileReader getFileReaderResource(File filePath)
-    {
-        try
-        {
-            return new FileReader(filePath);
-        }
-        catch (FileNotFoundException e)
-        {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public static FileReader getFileReaderResource(String filePath)
-    {
-        return getFileReaderResource(getFileResource(filePath));
     }
 }
