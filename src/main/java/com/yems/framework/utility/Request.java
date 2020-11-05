@@ -33,6 +33,7 @@ public class Request extends MainClass
                 }
             }
         }
+        LOG.info("Parameter: " + m_parameter);
     }
 
     public Boolean hasParameter(String key)

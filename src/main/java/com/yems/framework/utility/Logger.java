@@ -38,7 +38,7 @@ public class Logger
         for (StackTraceElement item : Thread.currentThread().getStackTrace())
         {
             String className = item.getClassName();
-            if (className.contains("java.lang.Thread") || className.contains("com.iohgame.framework.utility.Logger"))
+            if (className.contains("java.lang.Thread") || className.contains("com.yems.framework.utility.Logger"))
             {
                 continue;
             }
