@@ -10,9 +10,9 @@ import com.yems.framework.utility.Utility;
 import com.yems.framework.utility.parameters.constant.ConstDatetime;
 import com.yems.framework.utility.parameters.constant.ConstQuote;
 
-public class MysqlMasterDBI extends MysqlSlaveDBI
+public class MysqlMasterDbi extends MysqlSlaveDbi
 {
-    public MysqlMasterDBI(Request request)
+    public MysqlMasterDbi(Request request)
     {
         super(request);
     }

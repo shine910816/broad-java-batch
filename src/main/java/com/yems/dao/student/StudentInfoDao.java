@@ -2,6 +2,8 @@ package com.yems.dao.student;
 
 import java.util.Date;
 
+import com.yems.framework.utility.Utility;
+import com.yems.framework.utility.parameters.constant.ConstDatetime;
 import com.yems.framework.utility.parameters.constant.ConstGender;
 import com.yems.framework.utility.parameters.property.Dao;
 import com.yems.framework.utility.parameters.property.DaoBuilder;
@@ -9,6 +11,7 @@ import com.yems.framework.utility.parameters.property.Parameters;
 
 public class StudentInfoDao implements Dao
 {
+    private final Integer m_currentYear;
     private final Integer m_studentId;
     private final Integer m_schoolId;
     private final String m_studentName;
@@ -23,6 +26,13 @@ public class StudentInfoDao implements Dao
 
     private StudentInfoDao(ContainerBuilder builder)
     {
+        int currentMonthDay = Utility.toInteger(Utility.getCurrentDate(ConstDatetime.DATE_MONTH_DAY_NONE));
+        int currentYear = Utility.toInteger(Utility.getCurrentDate(ConstDatetime.DATE_YEAR));
+        if (currentMonthDay < 901)
+        {
+            currentYear--;
+        }
+        m_currentYear = currentYear;
         m_studentId = builder.m_studentId;
         m_schoolId = builder.m_schoolId;
         m_studentName = builder.m_studentName;
@@ -56,9 +66,28 @@ public class StudentInfoDao implements Dao
         return m_studentMobileNumber;
     }
 
+    public String studentCoveredMobile()
+    {
+        return m_studentMobileNumber.substring(0, 3) + "****" + m_studentMobileNumber.substring(7);
+    }
+
     public Integer studentEntranceYear()
     {
         return m_studentEntranceYear;
+    }
+
+    public GradeNames studentGrade()
+    {
+        int diffYears = m_currentYear - m_studentEntranceYear + 1;
+        if (diffYears < 0)
+        {
+            return GradeNames.CHILD;
+        }
+        else if (diffYears > 12)
+        {
+            return GradeNames.UNKNOWN;
+        }
+        return Utility.getEnum(Utility.toString(diffYears), GradeNames.class);
     }
 
     public ConstGender studentGender()

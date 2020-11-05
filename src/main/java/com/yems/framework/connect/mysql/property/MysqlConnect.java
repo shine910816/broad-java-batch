@@ -6,11 +6,11 @@ import java.sql.SQLException;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
-import com.yems.framework.connect.property.ConnectBase;
+import com.yems.framework.utility.MainClass;
 import com.yems.framework.utility.Request;
 import com.yems.framework.utility.parameters.property.OptionElement;
 
-public class MysqlConnect extends ConnectBase
+public class MysqlConnect extends MainClass
 {
     private final String m_request;
     private final String m_userName;

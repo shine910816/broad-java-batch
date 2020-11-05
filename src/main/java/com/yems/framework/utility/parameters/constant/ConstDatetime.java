@@ -20,6 +20,8 @@ public enum ConstDatetime implements Parameters
 
     DATE_YEAR_MONTH_NONE("yyyyMM"),
 
+    DATE_YEAR("yyyy"),
+
     DATE_MONTH_DAY_WORD("M月d日"),
 
     DATE_MONTH_DAY("MM-dd"),
