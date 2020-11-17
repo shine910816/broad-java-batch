@@ -1,29 +1,27 @@
 package com.yems;
 
-import java.util.Map;
-import java.util.Map.Entry;
-
-import com.yems.dao.student.StudentInfoDao;
-import com.yems.dbi.YemsDbiImpl;
 import com.yems.framework.utility.MainClass;
-import com.yems.framework.utility.Request;
+import com.yems.services.ServiceFactory;
+import com.yems.services.property.ServicePages;
 
 public class App extends MainClass
 {
+    public void start(String[] args)
+    {
+        ServiceFactory fac = new ServiceFactory(args);
+        for (ServicePages pages : fac.getServiceList())
+        {
+            LOG.info("Service start: " + pages);
+            if (!fac.getController(pages))
+            {
+                LOG.error("Service failed");
+            }
+            LOG.info("Service end");
+        }
+    }
+
     public static void main(String[] args)
     {
         new App().start(args);
-    }
-
-    public void start(String[] args)
-    {
-        Request request = new Request(args);
-        YemsDbiImpl dbi = new YemsDbiImpl(request);
-        Map<Integer, StudentInfoDao> list = dbi.student().selectStudentListBySchoolId(1);
-        for (Entry<Integer, StudentInfoDao> item : list.entrySet())
-        {
-            StudentInfoDao dao = item.getValue();
-            LOG.info(dao.studentName() + "\t" + dao.studentCoveredMobile() + "\t" + dao.studentGrade().gradeName());
-        }
     }
 }
