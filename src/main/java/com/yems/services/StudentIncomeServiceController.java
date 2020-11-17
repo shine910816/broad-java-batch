@@ -17,7 +17,7 @@ public class StudentIncomeServiceController extends ServiceControllerImpl<YemsDb
     @Override
     public boolean doMainValidate()
     {
-        if (Utility.getDate(Utility.adjustDate(Utility.getCurrentDate(), 1), "dd") == "1")
+        if (Utility.getDate(Utility.adjustDate(Utility.getCurrentDate(), 1), "dd") == "01")
         {
             m_isExecDate = true;
         }
@@ -34,6 +34,11 @@ public class StudentIncomeServiceController extends ServiceControllerImpl<YemsDb
             LOG.info("This day is not the end day of month");
             return true;
         }
+
+        LOG.info("Student income run");
+
+        
+
         return true;
     }
 }
