@@ -6,6 +6,8 @@ public enum ServicePages implements Parameters
 {
     STUDENT_INCOME,
 
+    TEST,
+
     TEMPLATE;
 
     @Override

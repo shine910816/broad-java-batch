@@ -39,6 +39,9 @@ public class ServiceFactory extends MainClass
             case STUDENT_INCOME:
                 controller = new StudentIncomeServiceController(m_request, m_dbi);
                 break;
+            case TEST:
+                controller = new TestController(m_request, m_dbi);
+                break;
             default:
                 LOG.error("Not found controller: " + pages);
                 return false;
