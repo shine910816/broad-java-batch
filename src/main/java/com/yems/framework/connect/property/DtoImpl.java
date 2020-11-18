@@ -48,6 +48,17 @@ public abstract class DtoImpl extends MainClass
     }
 
     /**
+     * 获取小数
+     * 
+     * @param column 字段名
+     * @return Float 小数
+     */
+    protected Float point(String column)
+    {
+        return Utility.toFloat(column);
+    }
+
+    /**
      * 获取是非
      * 
      * @param column 字段名

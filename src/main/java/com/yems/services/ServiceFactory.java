@@ -36,8 +36,8 @@ public class ServiceFactory extends MainClass
         ServiceController controller = null;
         switch (pages)
         {
-            case STUDENT_INCOME:
-                controller = new StudentIncomeServiceController(m_request, m_dbi);
+            case SURPLUS_INFO:
+                controller = new SurplusInfoServiceController(m_request, m_dbi);
                 break;
             case TEST:
                 controller = new TestController(m_request, m_dbi);

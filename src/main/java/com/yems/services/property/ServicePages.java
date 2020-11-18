@@ -4,7 +4,7 @@ import com.yems.framework.utility.parameters.property.Parameters;
 
 public enum ServicePages implements Parameters
 {
-    STUDENT_INCOME,
+    SURPLUS_INFO,
 
     TEST,
 

@@ -7,16 +7,18 @@ public abstract class MysqlDbi extends MainClass
 {
     private MysqlMasterDbi m_master;
     private MysqlSlaveDbi m_slave;
+    private Request m_request;
 
     public MysqlDbi(Request request)
     {
+        m_request = request;
         if (m_master == null)
         {
-            m_master = new MysqlMasterDbi(request);
+            m_master = new MysqlMasterDbi(m_request);
         }
         if (m_slave == null)
         {
-            m_slave = new MysqlSlaveDbi(request);
+            m_slave = new MysqlSlaveDbi(m_request);
         }
     }
 
@@ -28,5 +30,10 @@ public abstract class MysqlDbi extends MainClass
     protected MysqlSlaveDbi slave()
     {
         return m_slave;
+    }
+
+    protected Request request()
+    {
+        return m_request;
     }
 }
