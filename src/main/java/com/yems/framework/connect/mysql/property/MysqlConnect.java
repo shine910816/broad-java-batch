@@ -1,11 +1,11 @@
 package com.yems.framework.connect.mysql.property;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.Statement;
 import com.yems.framework.utility.MainClass;
 import com.yems.framework.utility.Request;
 import com.yems.framework.utility.parameters.property.OptionElement;
@@ -22,14 +22,15 @@ public class MysqlConnect extends MainClass
 
     public MysqlConnect(Request request)
     {
-        m_request = "jdbc:mysql://" + request.getParameter("url") + ":" + request.getParameter("port") + "/" + request.getParameter("db") + "?characterEncoding=utf-8&useSSL=false";
+        m_request = "jdbc:mysql://" + request.getParameter("url") + ":" + request.getParameter("port") + "/" + request.getParameter("db") + //
+                "?characterEncoding=utf-8&serverTimezone=GMT&useSSL=false";
         m_userName = request.getParameter("name");
         m_password = request.getParameter("pswd");
         if (m_connect == null)
         {
             try
             {
-                Class.forName("com.mysql.jdbc.Driver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 m_connect = (Connection) DriverManager.getConnection(m_request, m_userName, m_password);
             }
             catch (Exception e)
