@@ -8,6 +8,7 @@ import java.util.TreeMap;
 import com.yems.dao.order.OrderItemSimpleInfoDao;
 import com.yems.dao.student.StudentInfoDao;
 import com.yems.dbi.property.YemsDbi;
+import com.yems.framework.utility.MainClass;
 import com.yems.framework.utility.Request;
 import com.yems.framework.utility.Utility;
 import com.yems.framework.utility.parameters.constant.ConstDatetime;
@@ -15,7 +16,7 @@ import com.yems.services.property.ServiceControllerImpl;
 
 public class SurplusInfoServiceController extends ServiceControllerImpl<YemsDbi>
 {
-    private boolean m_isExecDate = false;
+    private boolean m_isExec = false;
 
     protected SurplusInfoServiceController(Request request, YemsDbi dbi)
     {
@@ -25,28 +26,32 @@ public class SurplusInfoServiceController extends ServiceControllerImpl<YemsDbi>
     @Override
     public boolean doMainValidate()
     {
-        if (Utility.getDate(Utility.adjustDate(Utility.getCurrentDate(), 1), "dd") == "01")
+        if (request().hasParameter("ness") && request().getParameter("ness").equals("1"))
         {
-            m_isExecDate = true;
+            LOG.info("Manual execute");
+            m_isExec = true;
+            return true;
         }
-        // TODO For test, complete coding it will be deleted
-        m_isExecDate = true;
+        if (Utility.getDate(Utility.adjustDate(Utility.getCurrentDate(), 1), "dd").equals("01"))
+        {
+            LOG.info("The end day execute");
+            m_isExec = true;
+            return true;
+        }
         return true;
     }
 
     @Override
     public boolean doMainExecute()
     {
-        if (!m_isExecDate)
+        if (!m_isExec)
         {
             LOG.info("This day is not the end day of month");
             return true;
         }
         String indexYearMonth = Utility.getCurrentDate(ConstDatetime.DATE_YEAR_MONTH_NONE);
         int schoolId = 1;
-
         LOG.info("Surplus info batch execute, index year month: " + indexYearMonth);
-
         Map<Integer, StudentInfoDao> studentList = dbi().student().selectStudentListBySchoolId(schoolId);
         Map<Integer, OrderItemSimpleInfoDao> orderItemList = dbi().orderItem().selectSimpleOrderItenForIncomeStats(schoolId);
         Map<Integer, SurplusInfoBean> dataMap = new HashMap<>();
@@ -55,18 +60,28 @@ public class SurplusInfoServiceController extends ServiceControllerImpl<YemsDbi>
             Integer studentId = orderItemInfo.getValue().studentId();
             if (studentList.containsKey(studentId))
             {
-                LOG.info("student_id: " + studentId + "\t" + studentList.get(studentId).studentName());
-                if (!dataMap.containsKey(studentId)) {
-                    SurplusInfoBean bean = new SurplusInfoServiceController.SurplusInfoBean(studentList.get(studentId), indexYearMonth);
-                    dataMap.put(studentId, bean);
+                if (!dataMap.containsKey(studentId))
+                {
+                    SurplusInfoBean newBean = new SurplusInfoServiceController.SurplusInfoBean(studentList.get(studentId), indexYearMonth);
+                    dataMap.put(studentId, newBean);
                 }
+                SurplusInfoBean bean = dataMap.get(studentId);
+                bean.set(orderItemInfo.getValue().orderItemRemain(), orderItemInfo.getValue().orderItemTransPrice());
+                dataMap.put(studentId, bean);
             }
         }
-
+        for (Entry<Integer, SurplusInfoBean> beanItem : dataMap.entrySet())
+        {
+            Map<String, String> insertData = beanItem.getValue().insertData();
+            if (insertData != null)
+            {
+                dbi().stats().insertSurplus(insertData);
+            }
+        }
         return true;
     }
 
-    public static class SurplusInfoBean
+    public static class SurplusInfoBean extends MainClass
     {
         private StudentInfoDao m_dao;
         private String m_idx;
@@ -82,14 +97,24 @@ public class SurplusInfoServiceController extends ServiceControllerImpl<YemsDbi>
         public void set(Float remain, Float price)
         {
             m_count += remain;
-            m_amount += remain * price;
+            m_amount += Utility.toFloat(String.format("%.2f", remain * price));
         }
-        
-        public Map<String,String> insertData()
+
+        public Map<String, String> insertData()
         {
-            Map<String,String> data = new TreeMap<>();
-            
-            
+            if (m_count <= 0f)
+            {
+                return null;
+            }
+            Map<String, String> data = new TreeMap<>();
+            data.put("surplus_date", m_idx);
+            data.put("student_id", Utility.toString(m_dao.studentId()));
+            data.put("school_id", Utility.toString(m_dao.schoolId()));
+            data.put("student_name", m_dao.studentName());
+            data.put("student_mobile_number", m_dao.studentCoveredMobile());
+            data.put("student_grade", m_dao.studentGrade().val());
+            data.put("student_surplus_count", String.format("%.1f", m_count));
+            data.put("student_surplus_amount", String.format("%.2f", m_amount));
             return data;
         }
     }

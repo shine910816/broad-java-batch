@@ -14,6 +14,7 @@ public class MysqlSlaveDbi extends MysqlConnect
 
     public ResultSet query(String sql)
     {
+        LOG.info("Slave query: " + sql);
         return slaveQuery(sql);
     }
 }

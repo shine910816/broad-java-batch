@@ -41,8 +41,6 @@ public class MysqlConnect extends MainClass
 
     protected ResultSet slaveQuery(String sql)
     {
-        LOG.info("SQL query: " + sql);
-
         try
         {
             m_statement = (Statement) m_connect.createStatement();

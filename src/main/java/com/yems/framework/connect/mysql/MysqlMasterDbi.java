@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.yems.framework.utility.Request;
 import com.yems.framework.utility.Utility;
+import com.yems.framework.utility.Variable;
 import com.yems.framework.utility.parameters.constant.ConstDatetime;
 import com.yems.framework.utility.parameters.constant.ConstQuote;
 
@@ -29,9 +30,10 @@ public class MysqlMasterDbi extends MysqlSlaveDbi
             value += Utility.quote(insertData.get(key)) + ", ";
         }
         String datatime = Utility.quote(Utility.getCurrentDate(ConstDatetime.DATETIME));
-        column += "`insert_date`, `update_date`, `del_flg`";
-        value += datatime + ", " + datatime + ", " + Utility.quote("0");
+        column += "`operated_by`, `insert_date`, `update_date`, `del_flg`";
+        value += Utility.quote(Variable.ADMIN_ID) + ", " + datatime + ", " + datatime + ", " + Utility.quote("0");
         String sql = String.format("INSERT INTO `%s` (%s) VALUES (%s);", tableName, column, value);
+        LOG.info("Master query: " + sql);
         Integer res = 0;
         if (masterQuery(sql) == 0)
         {
@@ -61,6 +63,7 @@ public class MysqlMasterDbi extends MysqlSlaveDbi
         }
         update += "`update_date` = " + Utility.quote(Utility.getCurrentDate(ConstDatetime.DATETIME));
         String sql = String.format("UPDATE `%s` SET %s WHERE %s;", tableName, update, where);
+        LOG.info("Master query: " + sql);
         if (masterQuery(sql) > 0)
         {
             return true;
@@ -71,6 +74,7 @@ public class MysqlMasterDbi extends MysqlSlaveDbi
     public boolean delete(String tableName, String where)
     {
         String sql = String.format("DELETE FROM `%s` WHERE %s;", tableName, where);
+        LOG.info("Master query: " + sql);
         if (masterQuery(sql) > 0)
         {
             return true;

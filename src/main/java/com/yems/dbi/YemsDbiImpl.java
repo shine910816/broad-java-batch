@@ -1,5 +1,6 @@
 package com.yems.dbi;
 
+import com.yems.dbi.property.DataStatisticsDbi;
 import com.yems.dbi.property.OrderItemInfoDbi;
 import com.yems.dbi.property.StudentInfoDbi;
 import com.yems.dbi.property.YemsDbi;
@@ -10,6 +11,7 @@ public class YemsDbiImpl extends MysqlDbi implements YemsDbi
 {
     private StudentInfoDbi m_student;
     private OrderItemInfoDbi m_orderItem;
+    private DataStatisticsDbi m_stats;
 
     public YemsDbiImpl(Request request)
     {
@@ -34,5 +36,15 @@ public class YemsDbiImpl extends MysqlDbi implements YemsDbi
             m_orderItem = new OrderItemInfoDbiImpl(request());
         }
         return m_orderItem;
+    }
+
+    @Override
+    public DataStatisticsDbi stats()
+    {
+        if (m_stats == null)
+        {
+            m_stats = new DataStatisticsDbiImpl(request());
+        }
+        return m_stats;
     }
 }

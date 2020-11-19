@@ -55,7 +55,7 @@ public abstract class DtoImpl extends MainClass
      */
     protected Float point(String column)
     {
-        return Utility.toFloat(column);
+        return Utility.toFloat(get(column));
     }
 
     /**

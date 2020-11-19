@@ -7,4 +7,6 @@ public interface YemsDbi extends Dbi
     public StudentInfoDbi student();
 
     public OrderItemInfoDbi orderItem();
+
+    public DataStatisticsDbi stats();
 }
