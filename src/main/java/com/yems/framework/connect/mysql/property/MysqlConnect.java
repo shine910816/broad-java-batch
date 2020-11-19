@@ -22,7 +22,7 @@ public class MysqlConnect extends MainClass
 
     public MysqlConnect(Request request)
     {
-        m_request = "jdbc:mysql://" + request.getParameter("url") + ":" + request.getParameter("port") + "/" + request.getParameter("db");
+        m_request = "jdbc:mysql://" + request.getParameter("url") + ":" + request.getParameter("port") + "/" + request.getParameter("db") + "?characterEncoding=utf-8&useSSL=false";
         m_userName = request.getParameter("name");
         m_password = request.getParameter("pswd");
         if (m_connect == null)
