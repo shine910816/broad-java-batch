@@ -11,6 +11,7 @@ import com.yems.dbi.property.YemsDbi;
 import com.yems.framework.utility.MainClass;
 import com.yems.framework.utility.Request;
 import com.yems.framework.utility.Utility;
+import com.yems.framework.utility.Variable;
 import com.yems.framework.utility.parameters.constant.ConstDatetime;
 import com.yems.services.property.ServiceControllerImpl;
 
@@ -46,14 +47,13 @@ public class SurplusInfoServiceController extends ServiceControllerImpl<YemsDbi>
     {
         if (!m_isExec)
         {
-            LOG.info("This day is not the end day of month");
+            LOG.error("It is not the end day of month: " + Utility.getCurrentDate(ConstDatetime.DATE));
             return true;
         }
         String indexYearMonth = Utility.getCurrentDate(ConstDatetime.DATE_YEAR_MONTH_NONE);
-        int schoolId = 1;
         LOG.info("Surplus info batch execute, index year month: " + indexYearMonth);
-        Map<Integer, StudentInfoDao> studentList = dbi().student().selectStudentListBySchoolId(schoolId);
-        Map<Integer, OrderItemSimpleInfoDao> orderItemList = dbi().orderItem().selectSimpleOrderItenForIncomeStats(schoolId);
+        Map<Integer, StudentInfoDao> studentList = dbi().student().selectStudentListBySchoolId(Variable.SCHOOL_ID);
+        Map<Integer, OrderItemSimpleInfoDao> orderItemList = dbi().orderItem().selectSimpleOrderItenForIncomeStats(Variable.SCHOOL_ID);
         Map<Integer, SurplusInfoBean> dataMap = new HashMap<>();
         for (Entry<Integer, OrderItemSimpleInfoDao> orderItemInfo : orderItemList.entrySet())
         {
