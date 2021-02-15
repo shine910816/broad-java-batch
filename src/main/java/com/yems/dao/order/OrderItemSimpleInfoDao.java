@@ -13,6 +13,7 @@ public class OrderItemSimpleInfoDao implements Dao
     private final Integer m_schoolId;
     private final Integer m_studentId;
     private final Integer m_orderItemAmount;
+    private final Float m_orderItemHoursAmount;
     private final Float m_orderItemTransPrice;
     private final OrderItemStatus m_orderItemStatus;
     private final Float m_orderItemRemain;
@@ -30,6 +31,7 @@ public class OrderItemSimpleInfoDao implements Dao
         m_schoolId = builder.m_schoolId;
         m_studentId = builder.m_studentId;
         m_orderItemAmount = builder.m_orderItemAmount;
+        m_orderItemHoursAmount = builder.m_orderItemHoursAmount;
         m_orderItemTransPrice = builder.m_orderItemTransPrice;
         m_orderItemStatus = builder.m_orderItemStatus;
         m_orderItemRemain = builder.m_orderItemRemain;
@@ -64,6 +66,11 @@ public class OrderItemSimpleInfoDao implements Dao
     public Integer orderItemAmount()
     {
         return m_orderItemAmount;
+    }
+
+    public Float orderItemHoursAmount()
+    {
+        return m_orderItemHoursAmount;
     }
 
     public Float orderItemTransPrice()
@@ -120,6 +127,7 @@ public class OrderItemSimpleInfoDao implements Dao
         private Integer m_schoolId;
         private Integer m_studentId;
         private Integer m_orderItemAmount;
+        private Float m_orderItemHoursAmount;
         private Float m_orderItemTransPrice;
         private OrderItemStatus m_orderItemStatus;
         private Float m_orderItemRemain;
@@ -157,6 +165,12 @@ public class OrderItemSimpleInfoDao implements Dao
         public ContainerBuilder orderItemAmount(Integer orderItemAmount)
         {
             m_orderItemAmount = orderItemAmount;
+            return this;
+        }
+
+        public ContainerBuilder orderItemHoursAmount(Float orderItemHoursAmount)
+        {
+            m_orderItemHoursAmount = orderItemHoursAmount;
             return this;
         }
 

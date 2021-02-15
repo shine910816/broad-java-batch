@@ -25,7 +25,7 @@ public class OrderItemInfoDbiImpl extends MysqlDbi implements OrderItemInfoDbi
         LOG.info("Select simple order iten for income stats by school id: " + schoolId);
 
         String sql = "SELECT order_item_id, contract_number, school_id, student_id," + //
-                " order_item_amount, order_item_trans_price, order_item_status, order_item_remain, order_item_arrange, order_item_confirm," + //
+                " order_item_amount, order_item_hours_amount, order_item_trans_price, order_item_status, order_item_remain, order_item_arrange, order_item_confirm," + //
                 " assign_member_id, assign_date, operated_by, insert_date" + //
                 " FROM order_item_info WHERE del_flg = 0 AND order_item_status = " + OrderItemStatus.ORDER_ITEM_STATUS_2.val() + //
                 " AND school_id = " + schoolId;

@@ -23,6 +23,7 @@ public class OrderItemSimpleInfoDto extends DtoImpl implements Dto<OrderItemSimp
                 .schoolId(num("school_id")) //
                 .studentId(num("student_id")) //
                 .orderItemAmount(num("order_item_amount")) //
+                .orderItemHoursAmount(point("order_item_hours_amount")) //
                 .orderItemTransPrice(point("order_item_trans_price")) //
                 .orderItemStatus(type("order_item_status", OrderItemStatus.class)) //
                 .orderItemRemain(point("order_item_remain")) //

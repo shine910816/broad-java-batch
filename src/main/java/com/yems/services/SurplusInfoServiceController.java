@@ -66,7 +66,7 @@ public class SurplusInfoServiceController extends ServiceControllerImpl<YemsDbi>
                     dataMap.put(studentId, newBean);
                 }
                 SurplusInfoBean bean = dataMap.get(studentId);
-                bean.set(orderItemInfo.getValue().orderItemRemain(), orderItemInfo.getValue().orderItemTransPrice());
+                bean.set(orderItemInfo.getValue().orderItemHoursAmount() - orderItemInfo.getValue().orderItemConfirm(), orderItemInfo.getValue().orderItemTransPrice());
                 dataMap.put(studentId, bean);
             }
         }
