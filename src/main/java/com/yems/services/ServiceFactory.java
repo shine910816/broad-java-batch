@@ -39,6 +39,9 @@ public class ServiceFactory extends MainClass
             case SURPLUS_INFO:
                 controller = new SurplusInfoServiceController(m_request, m_dbi);
                 break;
+            case CHANGE_ENDING:
+                controller = new ChangeToEndingController(m_request, m_dbi);
+                break;
             case TEST:
                 controller = new TestController(m_request, m_dbi);
                 break;

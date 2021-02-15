@@ -6,6 +6,8 @@ public enum ServicePages implements Parameters
 {
     SURPLUS_INFO,
 
+    CHANGE_ENDING,
+
     TEST,
 
     TEMPLATE;

@@ -8,4 +8,8 @@ import com.yems.framework.utility.parameters.property.Dbi;
 public interface OrderItemInfoDbi extends Dbi
 {
     public Map<Integer, OrderItemSimpleInfoDao> selectSimpleOrderItenForIncomeStats(Integer schoolId);
+
+    public Map<Integer, OrderItemSimpleInfoDao> selectNoChangeEndingOrderItem(Integer schoolId);
+
+    public boolean updateOrderItemInfo(Integer orderItemId, Map<String, String> updateData);
 }
